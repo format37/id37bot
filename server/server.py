@@ -1,24 +1,10 @@
 import logging
-# import openai
-# import pickle
 from fastapi import FastAPI, Request, Header
-# , File, UploadFile
 from fastapi.responses import JSONResponse
-# from pydantic import BaseModel
-# import pytube
-# import uuid
 import os
-# import ffmpeg
 import uvicorn
-# import math
-# from pydub import AudioSegment
-# import subprocess
-# from telebot import TeleBot
 import telebot
 import requests
-# import shutil
-# import subprocess
-# import json
 
 # Set up logging 
 logging.basicConfig(level=logging.INFO)
@@ -58,25 +44,13 @@ async def call_message(request: Request, authorization: str = Header(None)):
     elif message['text'].startswith('/user'):        
         message_text = message['from']['id']
         logger.info(f'Starts with /user: {message_text}')
-        # message_text = chat_id
-        # token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-        # # Send reply to sender ablut the chat_id
-        # update_message = send_reply(token, chat_id, message['message_id'], message_text)
     else:
         # Return ok, 200
         return JSONResponse(content={"status": "ok"}, status_code=200)    
 
-    # message_text = chat_id
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
     # Send reply to sender ablut the chat_id
     update_message = send_reply(token, message['chat']['id'], message['message_id'], message_text)
-
-    # original_message_id = message['message_id']
-    # chat_id = message['chat']['id']
-    # message_text = chat_id
-    # token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-    # # Send reply to sender ablut the chat_id
-    # update_message = send_reply(token, chat_id, original_message_id, message_text)
 
     # Return ok, 200
     return JSONResponse(content={"status": "ok"}, status_code=200)
