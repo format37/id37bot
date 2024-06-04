@@ -53,9 +53,11 @@ async def call_message(request: Request, authorization: str = Header(None)):
     # If message starts from "/chat"
     if message['text'].startswith('/group'):
         chat_id = message['chat']['id']
+        logger.info(f'Starts with /group: {chat_id}')
         
-    elif message['text'].startswith('/user'):
+    elif message['text'].startswith('/user'):        
         chat_id = message['from']['id']
+        logger.info(f'Starts with /user: {chat_id}')
         # message_text = chat_id
         # token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
         # # Send reply to sender ablut the chat_id
