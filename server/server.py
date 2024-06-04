@@ -52,12 +52,12 @@ async def call_message(request: Request, authorization: str = Header(None)):
 
     # If message starts from "/chat"
     if message['text'].startswith('/group'):
-        chat_id = message['chat']['id']
-        logger.info(f'Starts with /group: {chat_id}')
+        message_text = message['chat']['id']
+        logger.info(f'Starts with /group: {message_text}')
         
     elif message['text'].startswith('/user'):        
-        chat_id = message['from']['id']
-        logger.info(f'Starts with /user: {chat_id}')
+        message_text = message['from']['id']
+        logger.info(f'Starts with /user: {message_text}')
         # message_text = chat_id
         # token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
         # # Send reply to sender ablut the chat_id
@@ -66,10 +66,10 @@ async def call_message(request: Request, authorization: str = Header(None)):
         # Return ok, 200
         return JSONResponse(content={"status": "ok"}, status_code=200)    
 
-    message_text = chat_id
+    # message_text = chat_id
     token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
     # Send reply to sender ablut the chat_id
-    update_message = send_reply(token, chat_id, message['message_id'], message_text)
+    update_message = send_reply(token, message['chat']['id'], message['message_id'], message_text)
 
     # original_message_id = message['message_id']
     # chat_id = message['chat']['id']
