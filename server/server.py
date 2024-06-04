@@ -72,7 +72,7 @@ def send_reply(bot_token, chat_id, message_id, text):
 
 
 def main():
-    uvicorn.run(app, host="0.0.0.0", port=8703)
+    uvicorn.run(app, host="0.0.0.0", port=8704)
 
 
 if __name__ == "__main__":
