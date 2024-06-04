@@ -34,7 +34,7 @@ async def call_message(request: Request, authorization: str = Header(None)):
     # This function only retirns the chat id
     logger.info('post: message')    
     message = await request.json()
-    logger.info(f'message: {message}')
+    # logger.info(f'message: {message}')
 
     # If message starts from "/chat"
     if message['text'].startswith('/group'):
