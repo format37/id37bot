@@ -1,0 +1,1 @@
+sudo docker logs -f -t --since "1h" id37bot
