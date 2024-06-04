@@ -50,11 +50,31 @@ async def call_message(request: Request, authorization: str = Header(None)):
     message = await request.json()
     logger.info(f'message: {message}')
 
-    original_message_id = message['message_id']
-    chat_id = message['chat']['id']
+    # If message starts from "/chat"
+    if message['text'].startswith('/group'):
+        chat_id = message['chat']['id']
+        
+    elif message['text'].startswith('/user'):
+        chat_id = message['from']['id']
+        # message_text = chat_id
+        # token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+        # # Send reply to sender ablut the chat_id
+        # update_message = send_reply(token, chat_id, message['message_id'], message_text)
+    else:
+        # Return ok, 200
+        return JSONResponse(content={"status": "ok"}, status_code=200)    
+
     message_text = chat_id
+    token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
     # Send reply to sender ablut the chat_id
-    update_message = send_reply(token, chat_id, original_message_id, message_text)
+    update_message = send_reply(token, chat_id, message['message_id'], message_text)
+
+    # original_message_id = message['message_id']
+    # chat_id = message['chat']['id']
+    # message_text = chat_id
+    # token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+    # # Send reply to sender ablut the chat_id
+    # update_message = send_reply(token, chat_id, original_message_id, message_text)
 
     # Return ok, 200
     return JSONResponse(content={"status": "ok"}, status_code=200)
